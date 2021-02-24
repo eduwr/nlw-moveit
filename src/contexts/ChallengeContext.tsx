@@ -7,7 +7,7 @@ interface Challenge extends ChallengeWithTypeString {
   type: "body" | "eye";
 }
 
-interface ChallengesContextValues {
+export interface ChallengesContextValues {
   level: number;
   currentExperience: number;
   challengesCompleted: number;
