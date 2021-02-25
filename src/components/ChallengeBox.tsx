@@ -1,8 +1,24 @@
 import styles from "../styles/components/ChallengeBox.module.css";
 import { useChallenges } from "../hooks/useChallenges";
+import { useCountdown } from "../hooks/useCountdown";
 
 export const ChallengeBox = () => {
-  const { activeChallenge, resetChallenge } = useChallenges();
+  const {
+    activeChallenge,
+    resetChallenge,
+    completeChallenge,
+  } = useChallenges();
+
+  const { resetCountdown } = useCountdown();
+
+  function handleChallengeSucceeded() {
+    completeChallenge();
+    resetCountdown();
+  }
+  function handleChallengeFailed() {
+    resetChallenge();
+    resetCountdown();
+  }
 
   return (
     <div className={styles.challengeBoxContainer}>
@@ -22,13 +38,17 @@ export const ChallengeBox = () => {
           </main>
           <footer>
             <button
-              onClick={resetChallenge}
+              onClick={handleChallengeFailed}
               type="button"
               className={styles.challengeFailedButton}
             >
               Falhei
             </button>
-            <button type="button" className={styles.challengeSuccededButton}>
+            <button
+              type="button"
+              className={styles.challengeSuccededButton}
+              onClick={handleChallengeSucceeded}
+            >
               Completei
             </button>
           </footer>
