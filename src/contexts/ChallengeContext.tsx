@@ -31,7 +31,9 @@ export function ChallengesProvider({ children }: { children: ReactNode }) {
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
 
   function levelUp() {
     setLevel((prev) => prev + 1);
@@ -40,7 +42,14 @@ export function ChallengesProvider({ children }: { children: ReactNode }) {
   function startNewChallenge() {
     const randomChallengeIndex = Math.floor(Math.random() * challenges.length);
     const challenge = challenges[randomChallengeIndex];
+
     setActiveChallenge(challenge as Challenge);
+
+    if (Notification.permission === "granted") {
+      new Notification("Novo desafio 💪", {
+        body: `Valendo ${challenge.amount}xp!`,
+      });
+    }
   }
 
   function resetChallenge() {
