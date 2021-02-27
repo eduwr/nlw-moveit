@@ -63,10 +63,6 @@
   background: var(--blue-dark);
 }
 
-.countdownButton:focus {
-  outline: none;
-}
-
 .countdownButtonActive {
   background: var(--white);
   color: var(--title);
